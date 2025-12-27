@@ -840,7 +840,7 @@ if st.session_state.analysis_run:
                 if X.empty or y.empty:
                     st.warning("Not enough historical data to train the ML model for the chosen settings.")
                 else:
-                    clf, acc, report = train_xgb_classifier(X, y)
+                    
                     st.caption(f"Validation accuracy (holdout): **{acc:.3f}**")
 
                     with st.expander("Classification report"):
@@ -855,8 +855,7 @@ if st.session_state.analysis_run:
                             continue
                         proba = clf.predict_proba(row)[0]
                         pred_raw = clf.predict(row)[0]
-
-                         # Decode XGBoost class → original label
+                        # Decode XGBoost class → original label
                         pred = {0: -1, 1: 0, 2: 1}[int(pred_raw)]
 
 
