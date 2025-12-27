@@ -855,8 +855,6 @@ if st.session_state.analysis_run:
 
                         proba = clf.predict_proba(row)[0]
                         pred_raw = clf.predict(row)[0]
-
-    # Decode XGBoost class → original label
                         pred = {0: -1, 1: 0, 2: 1}[int(pred_raw)]
 
                         rows.append(
