@@ -866,7 +866,7 @@ if st.session_state.analysis_run:
                                 "ML_Pred": {1: "BUY", 0: "HOLD", -1: "SELL"}.get(pred, "HOLD"),
                                 "Prob_Buy": float(proba[2]),   # BUY
                                 "Prob_Hold": float(proba[1]),  # HOLD
-                                "Prob_Sell": float(proba[0]),  # SELL
+                                "Prob_Sell": float(proba[0]) # SELL
                                   }
                             )
 
