@@ -849,26 +849,26 @@ if st.session_state.analysis_run:
                     rows = []
                     for t in stqdm(selected_tickers, desc="Scoring", total=len(selected_tickers)):
                         row = latest_feature_row_for_ticker(
-                            t, sma_tuple, support_window, feature_cols, zz_pct, zz_min_bars
-                        )
+                            t, sma_tuple, support_window, feature_cols, zz_pct, zz_min_bars)
                         if row is None:
                             continue
+
                         proba = clf.predict_proba(row)[0]
                         pred_raw = clf.predict(row)[0]
-                        # Decode XGBoost class → original label
+
+    # Decode XGBoost class → original label
                         pred = {0: -1, 1: 0, 2: 1}[int(pred_raw)]
-
-
 
                         rows.append(
                             {
                                 "Ticker": t,
                                 "ML_Pred": {1: "BUY", 0: "HOLD", -1: "SELL"}.get(pred, "HOLD"),
-                                "Prob_Buy": float(proba[2]),   # BUY
-                                "Prob_Hold": float(proba[1]),  # HOLD
-                                "Prob_Sell": float(proba[0]) # SELL
-                                  }
-                            )
+                                "Prob_Buy": float(proba[2]),
+                                "Prob_Hold": float(proba[1]),
+                                "Prob_Sell": float(proba[0]),
+                            }
+                        )
+
 
 
                     ml_df = pd.DataFrame(rows).sort_values(
