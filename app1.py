@@ -840,6 +840,8 @@ if st.session_state.analysis_run:
                 if X.empty or y.empty:
                     st.warning("Not enough historical data to train the ML model for the chosen settings.")
                 else:
+                    clf, acc, report = train_xgb_classifier(X, y)
+
                     
                     st.caption(f"Validation accuracy (holdout): **{acc:.3f}**")
 
