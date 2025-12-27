@@ -856,7 +856,7 @@ if st.session_state.analysis_run:
                         proba = clf.predict_proba(row)[0]
                         pred_raw = clf.predict(row)[0]
 
-# Decode XGBoost class → original label
+                         # Decode XGBoost class → original label
                         pred = {0: -1, 1: 0, 2: 1}[int(pred_raw)]
 
 
@@ -864,21 +864,13 @@ if st.session_state.analysis_run:
                         rows.append(
                             {
                                 "Ticker": t,
-                                "ML_Pred": {1: "BUY", 0: "HOLD", -1: "SELL"}.get(int(pred), "HOLD"),
+                                "ML_Pred": {1: "BUY", 0: "HOLD", -1: "SELL"}.get(pred, "HOLD"),
                                 "Prob_Buy": float(proba[2]),   # BUY
-
-                                if proba is not None and 1 in clf.classes_
-                                else np.nan,
                                 "Prob_Hold": float(proba[1]),  # HOLD
-
-                                if proba is not None and 0 in clf.classes_
-                                else np.nan,
                                 "Prob_Sell": float(proba[0]),  # SELL
+                                  }
+                            )
 
-                                if proba is not None and -1 in clf.classes_
-                                else np.nan,
-                            }
-                        )
 
                     ml_df = pd.DataFrame(rows).sort_values(
                         ["ML_Pred", "Prob_Buy"], ascending=[True, False]
